@@ -3,4 +3,4 @@
 
 
 ## 간단한 도메인 구성도 
-![img.png](etc/img.png)
+![img.png](etc/도메인구성도.png)
