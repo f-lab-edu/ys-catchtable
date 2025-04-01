@@ -1,6 +1,6 @@
 package com.yscp.catchtable.domain.menu.entity;
 
-import com.yscp.catchtable.domain.category.entitry.Category;
+import com.yscp.catchtable.domain.category.entitry.MenuCategory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,9 +19,9 @@ public class Menu {
 
     @JoinColumn(name = "category_idx")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+    private MenuCategory category;
 
-    private Integer price;
+    private String price;
     private String name;
     private String imageUrl;
     private Integer ord;

@@ -1,8 +1,10 @@
 package com.yscp.catchtable.domain.category.entitry;
 
 
+import com.yscp.catchtable.domain.category.entitry.value.StoreCategoryCode;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,32 +13,27 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Category {
-
+public class StoreCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
+    @Enumerated(EnumType.STRING)
+    private StoreCategoryCode code;
+
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private Integer ord;
 
     private LocalDateTime regDatetime;
 
-    private Long regIdx;
-
     private LocalDateTime modDatetime;
 
-    private Long modIdx;
-
-    public Category(Long idx, String name, Integer ord, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+    @Builder
+    public StoreCategory(Long idx, StoreCategoryCode code, String name, LocalDateTime regDatetime, LocalDateTime modDatetime) {
         this.idx = idx;
+        this.code = code;
         this.name = name;
-        this.ord = ord;
         this.regDatetime = regDatetime;
-        this.regIdx = regIdx;
         this.modDatetime = modDatetime;
-        this.modIdx = modIdx;
     }
 }

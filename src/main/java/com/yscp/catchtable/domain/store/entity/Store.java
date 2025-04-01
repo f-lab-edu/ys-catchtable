@@ -48,9 +48,7 @@ public class Store {
     @Embedded
     private Promotion promotion;
 
-    @Convert(converter = DotListConverter.class)
-    private List<String> locationTypes;
-
+    private String addressCode;
     private LocalDateTime regDatetime;
     private Long regIdx;
     private LocalDateTime modDatetime;
