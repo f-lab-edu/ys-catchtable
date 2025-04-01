@@ -23,6 +23,8 @@ public class Amenity {
 
     private String name;
 
+    private String imageUrl;
+
     private LocalDateTime regDatetime;
 
     private Long regIdx;
@@ -31,10 +33,11 @@ public class Amenity {
 
     private Long modIdx;
 
-    public Amenity(Long idx, String code, String name, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+    public Amenity(Long idx, String code, String name, String imageUrl, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
         this.idx = idx;
         this.code = code;
         this.name = name;
+        this.imageUrl = imageUrl;
         this.regDatetime = regDatetime;
         this.regIdx = regIdx;
         this.modDatetime = modDatetime;

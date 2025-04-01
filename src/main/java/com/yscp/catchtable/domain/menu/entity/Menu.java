@@ -1,10 +1,12 @@
 package com.yscp.catchtable.domain.menu.entity;
 
 import com.yscp.catchtable.domain.category.entitry.MenuCategory;
+import com.yscp.catchtable.domain.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
 
@@ -17,9 +19,16 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @JoinColumn(name = "category_idx")
+    @JoinColumn(name = "store_idx")
     @ManyToOne(fetch = FetchType.LAZY)
+    @Comment("상점")
+    private Store store;
+
+    @JoinColumn(name = "category_idx")
+    @OneToOne(fetch = FetchType.LAZY)
+    @Comment("상점 메뉴 카테고리")
     private MenuCategory category;
+
 
     private String price;
     private String name;

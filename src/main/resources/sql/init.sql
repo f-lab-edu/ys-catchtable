@@ -4,13 +4,13 @@ CREATE TABLE `amenity` (
                            `idx` int NOT NULL AUTO_INCREMENT COMMENT '편의시설 식별자 번호',
                            `code` varchar(50) NOT NULL,
                            `name` varchar(50) NOT NULL COMMENT '코드명',
+                           `image_url` varchar(50) DEFAULT NULL,
                            `reg_datetime` datetime DEFAULT NULL COMMENT '등록일시',
                            `reg_idx` int NOT NULL COMMENT '등록자 식별자 번호',
                            `mod_datetime` datetime DEFAULT NULL COMMENT '수정일시',
                            `mod_idx` int DEFAULT NULL COMMENT '수정자 식별자 번호',
                            PRIMARY KEY (`idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='편의시설';
-
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='편의시설'
 
 --
 CREATE TABLE `kakao_user` (
@@ -29,9 +29,11 @@ CREATE TABLE `kakao_user` (
 --
 CREATE TABLE `menu` (
                         `idx` int NOT NULL AUTO_INCREMENT COMMENT '메뉴 식별자 번호 ',
-                        `category_idx` int NOT NULL COMMENT '메뉴 카테고리 식별자번호',
+                        `store_idx` int DEFAULT NULL COMMENT '상점 고유식별자 번호',
+                        `category_idx` int DEFAULT NULL COMMENT '메뉴 카테고리 식별자번호',
                         `price` varchar(100) NOT NULL COMMENT '가격',
                         `name` varchar(50) NOT NULL COMMENT '메뉴명 ',
+                        `description` varchar(100) DEFAULT NULL COMMENT '설명',
                         `image_url` varchar(50) DEFAULT NULL,
                         `ord` int NOT NULL COMMENT '순서',
                         `reg_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
@@ -39,12 +41,12 @@ CREATE TABLE `menu` (
                         `mod_datetime` datetime DEFAULT NULL COMMENT '수정일시',
                         `mod_idx` int DEFAULT NULL COMMENT '수정자 식별자 번호',
                         PRIMARY KEY (`idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상점 메뉴 '
-
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상점 메뉴 '
 --
 
 CREATE TABLE `menu_category` (
                                  `idx` int NOT NULL AUTO_INCREMENT COMMENT '메뉴 카테고리 식별자 번호',
+                                 `store_idx` int NOT NULL COMMENT '상점 식별자번호',
                                  `name` varchar(50) NOT NULL COMMENT '카테고리명',
                                  `ord` int DEFAULT NULL COMMENT '순서',
                                  `reg_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
@@ -52,23 +54,21 @@ CREATE TABLE `menu_category` (
                                  `mod_datetime` datetime DEFAULT NULL COMMENT '수정일시',
                                  `mod_idx` int DEFAULT NULL COMMENT '수정자 식별자 번호',
                                  PRIMARY KEY (`idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='메뉴 카테고리 '
-
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='메뉴 카테고리 '
 
 --
 
 CREATE TABLE `store` (
                          `idx` int NOT NULL AUTO_INCREMENT COMMENT '상점 식별자 번호',
-                         `display_address` varchar(100) NOT NULL COMMENT '주소 표기명',
-                         `detail_address` varchar(100) NOT NULL COMMENT '상세주소',
+                         `name` varchar(100) DEFAULT NULL COMMENT '상점명',
                          `regular_holiday` varchar(50) DEFAULT NULL COMMENT '정기 휴무 ',
+                         `category_idx` int NOT NULL COMMENT '상점 카테고리',
                          `point` point DEFAULT NULL COMMENT '좌표',
                          `introduce` text NOT NULL COMMENT '매장소개',
-                         `directions` text NOT NULL COMMENT '찾아오는 방법(길안내)',
+                         `directions` text COMMENT '찾아오는 방법(길안내)',
                          `parking_information` text COMMENT '주차안내',
                          `alcohol_information` text COMMENT '주류 안내(콜키지)',
                          `fee_information` varchar(50) DEFAULT NULL COMMENT '요금안내 ',
-                         `sales_information` varchar(1000) DEFAULT NULL COMMENT '영업안내',
                          `has_promotion` tinyint(1) NOT NULL DEFAULT '0',
                          `promotion_image` varchar(255) DEFAULT NULL,
                          `promotion_start_date` datetime DEFAULT NULL COMMENT '프로모션 시작일 ',
@@ -80,7 +80,7 @@ CREATE TABLE `store` (
                          `mod_datetime` datetime DEFAULT NULL COMMENT '수정일시',
                          `mod_idx` int DEFAULT NULL COMMENT '수정자 식별자 번호',
                          PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상점'
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상점'
 
 --
 
@@ -93,8 +93,7 @@ CREATE TABLE `store_amenity` (
                                  `mod_datetime` datetime DEFAULT NULL COMMENT '수정일시',
                                  `mod_idx` int DEFAULT NULL COMMENT '수정자 식별자 번호 ',
                                  PRIMARY KEY (`idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상점 편의시설 '
-
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상점 편의시설 '
 
 --
 
@@ -159,7 +158,7 @@ CREATE TABLE `user` (
 
 --
 
-CREATE TABLE `user_reseve_data` (
+CREATE TABLE `user_reserve_data` (
                                     `idx` int NOT NULL AUTO_INCREMENT COMMENT '유저 예약 데이터 식별자 번호',
                                     `user_idx` int NOT NULL COMMENT '유저 식별자 번호',
                                     `reserve_data_idx` int NOT NULL COMMENT '예약데이터 식별자 번호',
@@ -206,4 +205,17 @@ CREATE TABLE `store_category` (
                                   `name` varchar(50) NOT NULL COMMENT '카테고리명',
                                   `reg_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
                                   `mod_datetime` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+--
+
+CREATE TABLE `store_business_hour` (
+                                       `idx` int DEFAULT NULL,
+                                       `day` varchar(10) DEFAULT NULL,
+                                       `store_idx` int NOT NULL COMMENT '상점 식별자 번호',
+                                       `lunch_start_time` int DEFAULT NULL,
+                                       `lunch_end_time` int DEFAULT NULL,
+                                       `diner_start_time` int DEFAULT NULL,
+                                       `diner_end_time` int DEFAULT NULL,
+                                       `last_order` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

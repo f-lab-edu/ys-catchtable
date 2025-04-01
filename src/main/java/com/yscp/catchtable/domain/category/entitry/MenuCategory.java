@@ -1,10 +1,12 @@
 package com.yscp.catchtable.domain.category.entitry;
 
 
+import com.yscp.catchtable.domain.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +19,11 @@ public class MenuCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
+
+    @JoinColumn(name = "store_idx")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Comment("상점")
+    private Store store;
 
     @Column(nullable = false)
     private String name;
@@ -31,8 +38,9 @@ public class MenuCategory {
 
     private Long modIdx;
 
-    public MenuCategory(Long idx, String name, Integer ord, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+    public MenuCategory(Long idx, Store store, String name, Integer ord, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
         this.idx = idx;
+        this.store = store;
         this.name = name;
         this.ord = ord;
         this.regDatetime = regDatetime;
