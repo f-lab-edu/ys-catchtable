@@ -10,10 +10,11 @@ public record StoreSearchRequestDto(
         String keyword
 ) {
     public StoreSearchDto toSearchDto() {
+        int pageNo = page == null ? 1 : page;
         return StoreSearchDto.builder()
                 .type(type)
                 .keyword(keyword)
-                .pageRequest(PageRequest.of(page, limit))
+                .pageRequest(PageRequest.of(Math.max(pageNo - 1, 0), limit))
                 .build();
     }
 }

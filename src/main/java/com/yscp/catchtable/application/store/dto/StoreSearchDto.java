@@ -17,4 +17,12 @@ public class StoreSearchDto {
         this.type = StoreCategoryCode.from(type);
         this.pageRequest = pageRequest;
     }
+
+    public long getOffset() {
+        return pageRequest.getOffset();
+    }
+
+    public long getLimit() {
+        return pageRequest.getPageSize();
+    }
 }

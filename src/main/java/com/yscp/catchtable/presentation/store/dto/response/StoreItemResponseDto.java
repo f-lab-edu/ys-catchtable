@@ -1,22 +1,34 @@
 package com.yscp.catchtable.presentation.store.dto.response;
 
-import com.yscp.catchtable.presentation.common.dto.response.ImageResponse;
+import com.yscp.catchtable.application.store.dto.StoreDto;
 import com.yscp.catchtable.presentation.reserve.dto.response.ReserveResponseDto;
-import com.yscp.catchtable.presentation.review.dto.response.ReviewResponseDto;
 
 import java.util.List;
 
 public record StoreItemResponseDto(
+        Long idx,
         String title,
-        Boolean canCatchPay,
-        Boolean canCatchReserve,
-        ReviewResponseDto review,
         String location,
         String type,
-        List<ImageResponse> image,
-        String businessHour,
+        Integer startTime,
+        Integer endTime,
         String fee,
-        String event,
         List<ReserveResponseDto> reserveList
 ) {
+    public static StoreItemResponseDto from(StoreDto storeDto) {
+        List<ReserveResponseDto> reserveResponseDtos = storeDto.getReserveList()
+                .stream()
+                .map(ReserveResponseDto::from)
+                .toList();
+
+        return new StoreItemResponseDto(
+                storeDto.getIdx(),
+                storeDto.getTitle(),
+                storeDto.getLocation(),
+                storeDto.getType(),
+                storeDto.getStartTime(),
+                storeDto.getEndTime(),
+                storeDto.getFee(),
+                reserveResponseDtos);
+    }
 }
