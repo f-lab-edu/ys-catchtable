@@ -18,8 +18,12 @@ public class ReserveService {
     private final ReserveRepository repository;
 
     public Map<Long, List<StoreReserveDto>> reserveDtoMapByStoreList(List<Long> idxes, LocalDate maxDate) {
-        List<StoreReserveDto> storeReserveDtos = repository.storeReserveDtoBeforeMaxDate(idxes, maxDate);
+        List<StoreReserveDto> storeReserveDtos = repository.storeReserveDtoListBeforeMaxDate(idxes, maxDate);
         return storeReserveDtos.stream()
                 .collect(Collectors.groupingBy(StoreReserveDto::getStoreIdx, Collectors.toList()));
+    }
+
+    public List<StoreReserveDto> reserveDtoList(Long idx, LocalDate localDate) {
+        return repository.storeReserveDtoBeforeMaxDate(idx, localDate);
     }
 }

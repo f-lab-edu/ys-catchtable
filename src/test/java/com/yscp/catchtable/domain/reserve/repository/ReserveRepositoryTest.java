@@ -17,9 +17,15 @@ class ReserveRepositoryTest {
 
     @DisplayName("resultDtoList")
     @Test
-    void storeReserveDtoBeforeMaxDate() {
-        Assertions.assertThatCode(() -> reserveRepository.storeReserveDtoBeforeMaxDate(List.of(1L, 2L), LocalDate.of(2025, 6, 20)))
+    void storeReserveDtoListBeforeMaxDate() {
+        Assertions.assertThatCode(() -> reserveRepository.storeReserveDtoListBeforeMaxDate(List.of(1L, 2L), LocalDate.of(2025, 6, 20)))
                 .doesNotThrowAnyException();
+    }
 
+    @DisplayName("storeReserveDtoBeforeMaxDate")
+    @Test
+    void storeReserveDtoBeforeMaxDate() {
+        Assertions.assertThatCode(() -> reserveRepository.storeReserveDtoBeforeMaxDate(1L, LocalDate.of(2025, 6, 20)))
+                .doesNotThrowAnyException();
     }
 }

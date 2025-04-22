@@ -24,6 +24,7 @@ public class StoreAmenity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "amenity_idx")
     private Amenity amenity;
+    private String memo;
 
     private LocalDateTime regDatetime;
     private Long regIdx;

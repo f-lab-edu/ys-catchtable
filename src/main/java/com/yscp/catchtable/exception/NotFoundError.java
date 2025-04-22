@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
-public enum BadRequestException implements CustomError {
+public enum NotFoundError implements CustomError {
     NOT_FOUND_STORE("상점을 찾을 수 없습니다.", 100, false),
     ;
 

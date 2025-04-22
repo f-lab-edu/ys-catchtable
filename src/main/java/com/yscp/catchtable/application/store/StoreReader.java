@@ -4,6 +4,7 @@ import com.yscp.catchtable.application.reserve.ReserveService;
 import com.yscp.catchtable.application.reserve.dto.StoreReserveDto;
 import com.yscp.catchtable.application.store.dto.StoreBusinessDto;
 import com.yscp.catchtable.application.store.dto.StoreListDto;
+import com.yscp.catchtable.domain.store.entity.Store;
 import com.yscp.catchtable.domain.store.entity.Stores;
 import com.yscp.catchtable.presentation.store.dto.request.StoreSearchRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class StoreListService {
+public class StoreReader {
     private final StoreReadService storeReadService;
     private final StoreBusinessHourService storeBusinessHourService;
     private final ReserveService reserveService;
@@ -30,5 +31,14 @@ public class StoreListService {
 
         Map<Long, StoreBusinessDto> businessHourMap = storeBusinessHourService.findBusinessMap(idxes);
         return StoreListDto.of(stores, reserveDtoMap, businessHourMap);
+    }
+
+    public void storeDetailDto(Long idx) {
+        Store store = storeReadService.findByIdx(idx);
+        List<StoreReserveDto> reserveDtoList = reserveService.reserveDtoList(store.getIdx(), LocalDate.now().plusDays(14));
+        // 위치 조회
+        // 메뉴 조회
+        // 편의시설 조회
+        // 영업시간 조회
     }
 }
