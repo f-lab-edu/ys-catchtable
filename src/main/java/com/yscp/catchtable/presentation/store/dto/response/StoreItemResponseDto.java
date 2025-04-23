@@ -10,8 +10,8 @@ public record StoreItemResponseDto(
         String title,
         String location,
         String type,
-        Integer startTime,
-        Integer endTime,
+        String startTime,
+        String endTime,
         String fee,
         List<ReserveResponseDto> reserveList
 ) {

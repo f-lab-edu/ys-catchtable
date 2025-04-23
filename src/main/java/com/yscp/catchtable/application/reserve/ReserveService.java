@@ -1,5 +1,6 @@
 package com.yscp.catchtable.application.reserve;
 
+import com.yscp.catchtable.application.reserve.dto.ReserveDto;
 import com.yscp.catchtable.application.reserve.dto.StoreReserveDto;
 import com.yscp.catchtable.domain.reserve.repository.ReserveRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,10 @@ public class ReserveService {
                 .collect(Collectors.groupingBy(StoreReserveDto::getStoreIdx, Collectors.toList()));
     }
 
-    public List<StoreReserveDto> reserveDtoList(Long idx, LocalDate localDate) {
-        return repository.storeReserveDtoBeforeMaxDate(idx, localDate);
+    public List<ReserveDto> reserveDtoList(Long idx, LocalDate localDate) {
+        return repository.storeReserveDtoBeforeMaxDate(idx, localDate)
+                .stream()
+                .map(ReserveDto::from)
+                .toList();
     }
 }

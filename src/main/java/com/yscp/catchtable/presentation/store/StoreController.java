@@ -1,8 +1,10 @@
 package com.yscp.catchtable.presentation.store;
 
 import com.yscp.catchtable.application.store.StoreReader;
+import com.yscp.catchtable.application.store.dto.StoreDetailDto;
 import com.yscp.catchtable.application.store.dto.StoreListDto;
 import com.yscp.catchtable.presentation.store.dto.request.StoreSearchRequestDto;
+import com.yscp.catchtable.presentation.store.dto.response.StoreDetailResponseDto;
 import com.yscp.catchtable.presentation.store.dto.response.StoreListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,9 @@ public class StoreController {
     }
 
     @GetMapping("/stores/{idx}")
-    public ResponseEntity<StoreListResponseDto> storeDetail(@PathVariable Long idx) {
-        storeListService.storeDetailDto(idx);
-
-        return null;
+    public ResponseEntity<StoreDetailResponseDto> storeDetail(@PathVariable Long idx) {
+        StoreDetailDto storeDetailDto = storeListService.storeDetailDto(idx);
+        StoreDetailResponseDto storeDetailResponseDto = StoreDetailResponseDto.from(storeDetailDto);
+        return ResponseEntity.ok(storeDetailResponseDto);
     }
 }

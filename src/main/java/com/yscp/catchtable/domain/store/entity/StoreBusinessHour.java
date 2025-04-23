@@ -3,6 +3,7 @@ package com.yscp.catchtable.domain.store.entity;
 import com.yscp.catchtable.domain.store.entity.value.DayType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -26,19 +27,20 @@ public class StoreBusinessHour {
     private Store store;
 
     @Comment("점심 영업 시작 시간")
-    Integer lunchStartTime;
+    String lunchStartTime;
     @Comment("점심 영업 종료 시간")
-    Integer lunchEndTime;
+    String lunchEndTime;
     @Comment("저녁 영업 시작 시간")
-    Integer dinerStartTime;
+    String dinerStartTime;
     @Comment("저녁 영업 종료 시간")
-    Integer dinerEndTime;
+    String dinerEndTime;
     @Comment("라스트 오더")
-    Integer lastOrder;
+    String lastOrder;
 
-    public StoreBusinessHour(Long idx, DayType dayType, Store store, Integer lunchStartTime, Integer lunchEndTime, Integer dinerStartTime, Integer dinerEndTime, Integer lastOrder) {
+    @Builder
+    public StoreBusinessHour(Long idx, DayType day, Store store, String lunchStartTime, String lunchEndTime, String dinerStartTime, String dinerEndTime, String lastOrder) {
         this.idx = idx;
-        this.day = dayType;
+        this.day = day;
         this.store = store;
         this.lunchStartTime = lunchStartTime;
         this.lunchEndTime = lunchEndTime;

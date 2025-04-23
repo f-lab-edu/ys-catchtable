@@ -8,8 +8,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.geolatte.geom.Point;
 import org.hibernate.annotations.Comment;
+import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,6 +37,9 @@ public class Store {
     @JoinColumn(name = "category_idx")
     private StoreCategory category;
 
+    @Comment("전화번호")
+    private String tel;
+
     @Column(nullable = false, columnDefinition = "GEOMETRY")
     @Comment("상점 좌표")
     private Point point;
@@ -48,12 +51,6 @@ public class Store {
     @Column(nullable = false)
     @Comment("상점 길안내")
     private String directions;
-
-    @Comment("상점 주차 안내")
-    private String parkingInformation;
-
-    @Comment("상점 주류 안내")
-    private String alcoholInformation;
 
     @Comment("상점 가격 안내")
     private String feeInformation;
@@ -81,16 +78,15 @@ public class Store {
     private Long modIdx;
 
     @Builder
-    public Store(Long idx, List<String> holiday, String name, StoreCategory category, Point point, String introduce, String directions, String parkingInformation, String alcoholInformation, String feeInformation, Promotion promotion, String addressCode, String locationName, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+    public Store(Long idx, List<String> holiday, String name, StoreCategory category, String tel, Point point, String introduce, String directions, String feeInformation, Promotion promotion, String addressCode, String locationName, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
         this.idx = idx;
         this.holiday = holiday;
         this.name = name;
         this.category = category;
+        this.tel = tel;
         this.point = point;
         this.introduce = introduce;
         this.directions = directions;
-        this.parkingInformation = parkingInformation;
-        this.alcoholInformation = alcoholInformation;
         this.feeInformation = feeInformation;
         this.promotion = promotion;
         this.addressCode = addressCode;

@@ -14,8 +14,8 @@ public class StoreDto {
     private final String title;
     private final String location;
     private final String type;
-    private final Integer startTime;
-    private final Integer endTime;
+    private final String startTime;
+    private final String endTime;
     private final String fee;
     private final List<ReserveDto> reserveList;
 
@@ -37,7 +37,7 @@ public class StoreDto {
     }
 
     @Builder
-    public StoreDto(Long idx, String title, String location, String type, Integer startTime, Integer endTime, String fee, List<ReserveDto> reserveList) {
+    public StoreDto(Long idx, String title, String location, String type, String startTime, String endTime, String fee, List<ReserveDto> reserveList) {
         this.idx = idx;
         this.title = title;
         this.location = location;
