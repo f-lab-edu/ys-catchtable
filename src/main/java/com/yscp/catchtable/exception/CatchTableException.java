@@ -13,26 +13,26 @@ public class CatchTableException extends RuntimeException implements CustomError
     }
 
     public CatchTableException(CustomError customError, String message) {
-        super(customError.message());
+        super(customError.getMessage());
         this.customError = customError;
         this.customMessage = message;
     }
 
     @Override
-    public HttpStatus statusCode() {
-        return customError.statusCode();
+    public HttpStatus getHttpStatus() {
+        return customError.getHttpStatus();
     }
 
     @Override
-    public String errorCode() {
-        return customError.errorCode();
+    public String getErrorCode() {
+        return customError.getErrorCode();
     }
 
     @Override
-    public String message() {
+    public String getMessage() {
         if (customError.isCustomMessage()) {
-            return String.format(customError.message(), customMessage);
+            return String.format(customError.getMessage(), customMessage);
         }
-        return customError.message();
+        return customError.getMessage();
     }
 }

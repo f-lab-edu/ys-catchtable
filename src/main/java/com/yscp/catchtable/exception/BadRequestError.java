@@ -1,9 +1,11 @@
 package com.yscp.catchtable.exception;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
+@Getter
 public enum BadRequestError implements CustomError {
 
     /**
@@ -11,23 +13,15 @@ public enum BadRequestError implements CustomError {
      */
     NULL_EXCEPTION("%s", 1, true);
 
+    private final HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
     private final String message;
     private final Integer errorCode;
     private final Boolean isCustomMessage;
 
-    @Override
-    public HttpStatus statusCode() {
-        return HttpStatus.BAD_REQUEST;
-    }
 
     @Override
-    public String errorCode() {
+    public String getErrorCode() {
         return "BAD_REQUEST_" + errorCode;
-    }
-
-    @Override
-    public String message() {
-        return message;
     }
 
     @Override

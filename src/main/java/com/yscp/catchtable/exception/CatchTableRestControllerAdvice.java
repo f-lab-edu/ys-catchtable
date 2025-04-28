@@ -14,9 +14,9 @@ public class CatchTableRestControllerAdvice {
     @ExceptionHandler(CatchTableException.class)
     public ResponseEntity<FailureResponse> handleBadRequestException(CatchTableException exception) {
         return ResponseEntity
-                .status(exception.statusCode())
-                .body(new FailureResponse(exception.statusCode(),
-                        exception.errorCode(),
+                .status(exception.getHttpStatus())
+                .body(new FailureResponse(exception.getHttpStatus(),
+                        exception.getErrorCode(),
                         exception.getMessage()));
     }
 }

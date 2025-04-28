@@ -3,11 +3,11 @@ package com.yscp.catchtable.exception;
 import org.springframework.http.HttpStatus;
 
 public interface CustomError {
-    HttpStatus statusCode();
+    HttpStatus getHttpStatus();
 
-    String errorCode();
+    String getErrorCode();
 
-    String message();
+    String getMessage();
 
     default Boolean isCustomMessage() {
         return false;
