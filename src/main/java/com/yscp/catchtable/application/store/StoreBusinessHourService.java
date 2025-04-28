@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class StoreBusinessHourService {
     private final StoreBusinessHourRepository storeBusinessHourRepository;
 
-
     public Map<Long, StoreBusinessDto> findBusinessMap(List<Long> idxes) {
         return storeBusinessHourRepository.findByStoreIdxIn(idxes)
                 .stream()
