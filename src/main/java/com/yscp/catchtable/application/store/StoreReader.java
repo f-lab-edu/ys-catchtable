@@ -10,7 +10,7 @@ import com.yscp.catchtable.application.reserve.dto.ReserveDto;
 import com.yscp.catchtable.application.reserve.dto.StoreReserveDto;
 import com.yscp.catchtable.application.store.dto.StoreBusinessDto;
 import com.yscp.catchtable.application.store.dto.StoreDetailDto;
-import com.yscp.catchtable.application.store.dto.StoreListDto;
+import com.yscp.catchtable.application.store.dto.StoreDtos;
 import com.yscp.catchtable.domain.menu.entity.sort.MenuSort;
 import com.yscp.catchtable.domain.store.entity.Store;
 import com.yscp.catchtable.domain.store.entity.Stores;
@@ -33,7 +33,7 @@ public class StoreReader {
     private final MenuReadService menuReadservice;
     private final StoreAmenityReadService amenityReadService;
 
-    public StoreListDto getStoreListDto(StoreSearchRequestDto storeSearchRequestDto, LocalDate date) {
+    public StoreDtos getStoreListDto(StoreSearchRequestDto storeSearchRequestDto, LocalDate date) {
         Stores stores = Stores.from(storeReadService.findBySearchDto(storeSearchRequestDto.toSearchDto()));
 
         List<Long> idxes = stores.idxes();
@@ -42,7 +42,7 @@ public class StoreReader {
                 date.plusDays(14));
 
         Map<Long, StoreBusinessDto> businessHourMap = storeBusinessHourService.findBusinessMap(idxes, date);
-        return StoreListDto.of(stores,
+        return StoreDtos.of(stores,
                 reserveDtoMap,
                 businessHourMap);
     }

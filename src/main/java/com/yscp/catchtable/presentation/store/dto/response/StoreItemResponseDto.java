@@ -13,10 +13,10 @@ public record StoreItemResponseDto(
         String startTime,
         String endTime,
         String fee,
-        List<ReserveResponseDto> reserveList
+        List<ReserveResponseDto> reserves
 ) {
     public static StoreItemResponseDto from(StoreDto storeDto) {
-        List<ReserveResponseDto> reserveResponseDtos = storeDto.getReserveList()
+        List<ReserveResponseDto> reserveResponseDtos = storeDto.getReserves()
                 .stream()
                 .map(ReserveResponseDto::from)
                 .toList();

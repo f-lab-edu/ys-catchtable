@@ -2,10 +2,10 @@ package com.yscp.catchtable.presentation.store;
 
 import com.yscp.catchtable.application.store.StoreReader;
 import com.yscp.catchtable.application.store.dto.StoreDetailDto;
-import com.yscp.catchtable.application.store.dto.StoreListDto;
+import com.yscp.catchtable.application.store.dto.StoreDtos;
 import com.yscp.catchtable.presentation.store.dto.request.StoreSearchRequestDto;
 import com.yscp.catchtable.presentation.store.dto.response.StoreDetailResponseDto;
-import com.yscp.catchtable.presentation.store.dto.response.StoreListResponseDto;
+import com.yscp.catchtable.presentation.store.dto.response.StoresResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,10 @@ public class StoreController {
     private final StoreReader storeListService;
 
     @GetMapping("/stores")
-    public ResponseEntity<StoreListResponseDto> getStores(StoreSearchRequestDto request) {
-        StoreListDto storeListDto = storeListService.getStoreListDto(request, LocalDate.now());
+    public ResponseEntity<StoresResponseDto> getStores(StoreSearchRequestDto request) {
+        StoreDtos storeListDto = storeListService.getStoreListDto(request, LocalDate.now());
 
-        return ResponseEntity.ok(StoreListResponseDto.from(storeListDto));
+        return ResponseEntity.ok(StoresResponseDto.from(storeListDto));
     }
 
     @GetMapping("/stores/{idx}")

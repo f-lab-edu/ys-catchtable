@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class StoreListDto {
-    private List<StoreDto> storeList;
+public class StoreDtos {
+    private List<StoreDto> stores;
 
-    public static StoreListDto of(Stores stores, Map<Long, List<StoreReserveDto>> reserveDtoMap, Map<Long, StoreBusinessDto> businessHourMap) {
-        List<StoreDto> storeDtoList = stores.getStoreList()
+    public static StoreDtos of(Stores stores, Map<Long, List<StoreReserveDto>> reserveDtoMap, Map<Long, StoreBusinessDto> businessHourMap) {
+        List<StoreDto> stroeDtos = stores.getStoreList()
                 .stream()
                 .map(store -> StoreDto.of(store,
                         reserveDtoMap.getOrDefault(store.getIdx(), new ArrayList<>()),
@@ -19,14 +19,14 @@ public class StoreListDto {
                 ))
                 .toList();
 
-        return new StoreListDto(storeDtoList);
+        return new StoreDtos(stroeDtos);
     }
 
-    public StoreListDto(List<StoreDto> storeList) {
-        this.storeList = storeList;
+    public StoreDtos(List<StoreDto> stores) {
+        this.stores = stores;
     }
 
     public List<StoreDto> getList() {
-        return storeList;
+        return stores;
     }
 }

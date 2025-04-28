@@ -15,7 +15,7 @@ class ReserveRepositoryTest {
     @Autowired
     private ReserveRepository reserveRepository;
 
-    @DisplayName("resultDtoList")
+    @DisplayName("resultDtos")
     @Test
     void findStoreReserveDtoListBeforeMaxDate() {
         Assertions.assertThatCode(() -> reserveRepository.findStoreReserveDtoListBeforeMaxDate(List.of(1L, 2L), LocalDate.of(2025, 6, 20)))
