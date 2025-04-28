@@ -18,12 +18,6 @@ public enum BadRequestError implements CustomError {
     private final Integer errorCode;
     private final Boolean isCustomMessage;
 
-
-    @Override
-    public String getErrorCode() {
-        return "BAD_REQUEST_" + errorCode;
-    }
-
     @Override
     public Boolean isCustomMessage() {
         return isCustomMessage;
