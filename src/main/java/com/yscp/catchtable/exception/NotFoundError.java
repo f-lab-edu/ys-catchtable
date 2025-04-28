@@ -19,7 +19,7 @@ public enum NotFoundError implements CustomError {
 
     @Override
     public String errorCode() {
-        return "BAD_REQUEST_" + errorCode;
+        return "NOT_FOUND_" + errorCode;
     }
 
     @Override

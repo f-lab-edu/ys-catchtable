@@ -14,7 +14,7 @@ public record StoreDetailDto(
         String introduce,
         String price,
         LocationDto location,
-        List<ReserveDto> reserveList,
+        List<ReserveDto> reserves,
         List<MenuDto> menuList,
         List<StoreAmenityDto> amenities,
         List<StoreBusinessDto> businessHour

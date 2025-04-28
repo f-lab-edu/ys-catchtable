@@ -27,6 +27,9 @@ public enum DayType {
     }
 
     public static DayType from(LocalDate now) {
+        if (now == null) {
+            return  ALL;
+        }
         return MAPPING.getOrDefault(now.getDayOfWeek()
                 .getValue(), DayType.ALL);
     }

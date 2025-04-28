@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 public class ReserveService {
     private final ReserveRepository repository;
 
-    public Map<Long, List<StoreReserveDto>> reserveDtoMapByStoreList(List<Long> idxes, LocalDate maxDate) {
-        List<StoreReserveDto> storeReserveDtos = repository.storeReserveDtoListBeforeMaxDate(idxes, maxDate);
+    public Map<Long, List<StoreReserveDto>> findReserveDtoMapByStores(List<Long> idxes, LocalDate maxDate) {
+        List<StoreReserveDto> storeReserveDtos = repository.findStoreReserveDtoListBeforeMaxDate(idxes, maxDate);
         return storeReserveDtos.stream()
                 .collect(Collectors.groupingBy(StoreReserveDto::getStoreIdx, Collectors.toList()));
     }
 
-    public List<ReserveDto> reserveDtoList(Long idx, LocalDate localDate) {
-        return repository.storeReserveDtoBeforeMaxDate(idx, localDate)
+    public List<ReserveDto> findReserveDtos(Long idx, LocalDate localDate) {
+        return repository.getStoreReserveDtoBeforeMaxDate(idx, localDate)
                 .stream()
                 .map(ReserveDto::from)
                 .toList();

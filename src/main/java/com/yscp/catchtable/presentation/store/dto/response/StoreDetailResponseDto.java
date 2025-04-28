@@ -28,7 +28,7 @@ public record StoreDetailResponseDto(
 ) {
     public static StoreDetailResponseDto from(StoreDetailDto storeDetailDto) {
         LocationResponseDto locationResponseDto = new LocationResponseDto(storeDetailDto.location());
-        List<ReserveResponseDto> reserveResponseDtos = convertReserveList(storeDetailDto.reserveList());
+        List<ReserveResponseDto> reserveResponseDtos = convertReserveList(storeDetailDto.reserves());
         List<MenuResponseDto> menuResponseDtos = convertMenuResponseList(storeDetailDto.menuList());
         List<StoreAmenityResponseDto> amenityResponseDtos = convertAmenitiesResponse(storeDetailDto.amenities());
         List<StoreBusinessResponseDto> businessResponseDtos = convertBusinessResponse(storeDetailDto.businessHour());

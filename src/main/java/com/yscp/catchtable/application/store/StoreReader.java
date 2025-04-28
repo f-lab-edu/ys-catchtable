@@ -33,27 +33,33 @@ public class StoreReader {
     private final MenuReadService menuReadservice;
     private final StoreAmenityReadService amenityReadService;
 
-    public StoreListDto getStoreListDto(StoreSearchRequestDto storeSearchRequestDto) {
+    public StoreListDto getStoreListDto(StoreSearchRequestDto storeSearchRequestDto, LocalDate date) {
         Stores stores = Stores.from(storeReadService.findBySearchDto(storeSearchRequestDto.toSearchDto()));
 
         List<Long> idxes = stores.idxes();
-        Map<Long, List<StoreReserveDto>> reserveDtoMap = reserveService.reserveDtoMapByStoreList(idxes, LocalDate.now().plusDays(14));
 
-        Map<Long, StoreBusinessDto> businessHourMap = storeBusinessHourService.findBusinessMap(idxes);
-        return StoreListDto.of(stores, reserveDtoMap, businessHourMap);
+        Map<Long, List<StoreReserveDto>> reserveDtoMap = reserveService.findReserveDtoMapByStores(idxes,
+                date.plusDays(14));
+
+        Map<Long, StoreBusinessDto> businessHourMap = storeBusinessHourService.findBusinessMap(idxes, date);
+        return StoreListDto.of(stores,
+                reserveDtoMap,
+                businessHourMap);
     }
 
-    public StoreDetailDto storeDetailDto(Long idx) {
+    public StoreDetailDto getStoreDetailDto(Long idx, LocalDate date) {
         Store store = storeReadService.findByIdx(idx);
-        List<ReserveDto> reserveDtoList = reserveService.reserveDtoList(store.getIdx(), LocalDate.now().plusDays(14));
+        List<ReserveDto> reserveDtoList = reserveService.findReserveDtos(store.getIdx(), date.plusDays(14));
         // 메뉴 조회
-        List<MenuDto> menuList = menuReadservice.findMenuDtoByStoreIdxAndSort(store.getIdx(), MenuSort.ORD_DESC);
+        List<MenuDto> menuList = menuReadservice.findMenuDtoByStoreIdx(store.getIdx(), MenuSort.ORD_DESC);
         // 편의시설 조회
         List<StoreAmenityDto> storeAmenities = amenityReadService.findAmenityDtoByStoreIdx(store.getIdx());
         // 영업시간 조회
         List<StoreBusinessDto> businessDto = storeBusinessHourService.findByStoreIdx(store.getIdx());
         // 위치정보 조회
-        LocationDto locationDto = new LocationDto(store.getAddressCode(), store.getLocationName(), store.getPoint());
+        LocationDto locationDto = new LocationDto(store.getAddressCode(),
+                store.getLocationName(),
+                store.getPoint());
 
         return new StoreDetailDto(
                 store.getIdx(),

@@ -5,7 +5,11 @@ import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
 public enum BadRequestError implements CustomError {
-    ;
+
+    /**
+     * 0 ~ 100 Common
+     */
+    NULL_EXCEPTION("%s", 1, true);
 
     private final String message;
     private final Integer errorCode;
