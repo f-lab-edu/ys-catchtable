@@ -30,9 +30,13 @@ public class Menu {
     private MenuCategory category;
 
 
+    @Comment("메뉴 가격")
     private String price;
+    @Comment("메뉴명")
     private String name;
+    @Comment("메뉴 이미지")
     private String imageUrl;
+    @Comment("메뉴 순서")
     private Integer ord;
     private LocalDateTime regDatetime;
     private Long regIdx;

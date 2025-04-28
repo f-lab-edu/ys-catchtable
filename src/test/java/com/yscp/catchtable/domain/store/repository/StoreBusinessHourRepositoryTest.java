@@ -1,5 +1,6 @@
 package com.yscp.catchtable.domain.store.repository;
 
+import com.yscp.catchtable.domain.store.entity.value.DayType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class StoreBusinessHourRepositoryTest {
     @DisplayName("findByStoreIdxIn")
     @Test
     void findByStoreIdxIn() {
-        Assertions.assertThatCode(() -> storeBusinessHourRepository.findByStoreIdxIn(List.of(1L, 2L, 3L)))
+        Assertions.assertThatCode(() -> storeBusinessHourRepository.findByStoreIdxIn(List.of(1L, 2L, 3L), DayType.THU))
                 .doesNotThrowAnyException();
     }
 }

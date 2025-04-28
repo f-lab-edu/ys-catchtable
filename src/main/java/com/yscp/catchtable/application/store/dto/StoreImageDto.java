@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StoreImageDto {
-    public static StoreListDto of(Stores stores, Map<Long, List<StoreReserveDto>> reserveDtoMap) {
+    public static StoreDtos of(Stores stores, Map<Long, List<StoreReserveDto>> reserveDtoMap) {
         return null;
     }
 }
