@@ -1,13 +1,15 @@
 package com.yscp.catchtable.domain.store.entity;
 
+import com.yscp.catchtable.domain.category.entitry.StoreCategory;
 import com.yscp.catchtable.domain.store.entity.value.Promotion;
 import com.yscp.catchtable.domain.store.entity.value.convert.DotListConverter;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.geolatte.geom.Point;
 import org.hibernate.annotations.Comment;
-import org.springframework.data.geo.Point;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +28,16 @@ public class Store {
     @Comment("휴무일")
     private List<String> holiday;
 
+    @Comment("상점명")
     @Column(nullable = false)
+    private String name;
+
+    @Comment("가게 유형")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_idx")
+    private StoreCategory category;
+
+    @Column(nullable = false, columnDefinition = "GEOMETRY")
     @Comment("상점 좌표")
     private Point point;
 
@@ -69,5 +80,24 @@ public class Store {
     @Comment("상점 수정자 식별자 번호")
     private Long modIdx;
 
-
+    @Builder
+    public Store(Long idx, List<String> holiday, String name, StoreCategory category, Point point, String introduce, String directions, String parkingInformation, String alcoholInformation, String feeInformation, Promotion promotion, String addressCode, String locationName, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+        this.idx = idx;
+        this.holiday = holiday;
+        this.name = name;
+        this.category = category;
+        this.point = point;
+        this.introduce = introduce;
+        this.directions = directions;
+        this.parkingInformation = parkingInformation;
+        this.alcoholInformation = alcoholInformation;
+        this.feeInformation = feeInformation;
+        this.promotion = promotion;
+        this.addressCode = addressCode;
+        this.locationName = locationName;
+        this.regDatetime = regDatetime;
+        this.regIdx = regIdx;
+        this.modDatetime = modDatetime;
+        this.modIdx = modIdx;
+    }
 }
