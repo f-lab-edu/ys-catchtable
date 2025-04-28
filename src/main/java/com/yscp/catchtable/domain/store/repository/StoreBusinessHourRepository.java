@@ -11,8 +11,8 @@ public interface StoreBusinessHourRepository extends JpaRepository<StoreBusiness
 
     @Query(value = """
             SELECT sb
-                            FROM StoreBusinessHour sb
-                                            WHERE sb.store.idx in :storeIdxes
+            FROM StoreBusinessHour sb
+            WHERE sb.store.idx in :storeIdxes
             """)
     List<StoreBusinessHour> findByStoreIdxIn(@Param("storeIdxes") List<Long> storeIdxes);
 }

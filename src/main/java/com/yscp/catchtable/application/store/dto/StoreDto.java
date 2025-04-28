@@ -19,7 +19,9 @@ public class StoreDto {
     private final String fee;
     private final List<ReserveDto> reserveList;
 
-    public static StoreDto of(Store store, List<StoreReserveDto> reserveDtoList, StoreBusinessDto businessHour) {
+    public static StoreDto of(Store store,
+                              List<StoreReserveDto> reserveDtoList,
+                              StoreBusinessDto businessHour) {
         List<ReserveDto> reserveDtos = reserveDtoList.stream()
                 .map(ReserveDto::from)
                 .toList();
@@ -37,7 +39,14 @@ public class StoreDto {
     }
 
     @Builder
-    public StoreDto(Long idx, String title, String location, String type, Integer startTime, Integer endTime, String fee, List<ReserveDto> reserveList) {
+    public StoreDto(Long idx,
+                    String title,
+                    String location,
+                    String type,
+                    Integer startTime,
+                    Integer endTime,
+                    String fee,
+                    List<ReserveDto> reserveList) {
         this.idx = idx;
         this.title = title;
         this.location = location;

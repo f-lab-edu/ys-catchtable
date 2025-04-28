@@ -13,14 +13,14 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
 
     @Query(
             value = """
-                    select 
-                                   reserve_data AS date,
-                                   IF(SUM(reserved_count) > 0, true, false) AS reserve,
-                                   store_idx
-                    from store_reserve_data
-                    where store_idx in :storeIdxes
+                    SELECT 
+                       reserve_data AS date,
+                       SUM(reserved_count) AS reserve,
+                       store_idx
+                    FROM store_reserve_data
+                    WHERE store_idx IN :storeIdxes
                     AND reserve_data <= :date
-                    group by  store_idx,date
+                    GROUP BY  store_idx,date
                     """
             , nativeQuery = true)
     List<StoreReserveDto> storeReserveDtoBeforeMaxDate(@Param("storeIdxes") List<Long> storeIdxes, @Param("date") LocalDate date);

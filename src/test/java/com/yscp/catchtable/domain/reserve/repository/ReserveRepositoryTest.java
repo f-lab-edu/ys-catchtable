@@ -20,6 +20,5 @@ class ReserveRepositoryTest {
     void storeReserveDtoBeforeMaxDate() {
         Assertions.assertThatCode(() -> reserveRepository.storeReserveDtoBeforeMaxDate(List.of(1L, 2L), LocalDate.of(2025, 6, 20)))
                 .doesNotThrowAnyException();
-
     }
 }
