@@ -13,19 +13,19 @@ public interface StoreBusinessHourRepository extends JpaRepository<StoreBusiness
 
     @Query(value = """
             SELECT sb
-                            FROM StoreBusinessHour sb
-                                            WHERE sb.store.idx in :storeIdxes
-                                                        and (
-                                                                    sb.day = :dayType
-                                                                                or sb.day = com.yscp.catchtable.domain.store.entity.value.DayType.ALL)
+            FROM StoreBusinessHour sb
+            WHERE sb.store.idx in :storeIdxes
+            AND (
+            sb.day = :dayType
+            OR sb.day = com.yscp.catchtable.domain.store.entity.value.DayType.ALL)
             """)
     List<StoreBusinessHour> findByStoreIdxIn(@Param("storeIdxes") List<Long> storeIdxes,@Param("dayType") DayType dayType);
 
 
     @Query(value = """
             SELECT sb
-                            FROM StoreBusinessHour sb
-                                            WHERE sb.store.idx = :storeIdx
+            FROM StoreBusinessHour sb
+            WHERE sb.store.idx = :storeIdx
             """)
     List<StoreBusinessDto> findByStoreIdx(@Param("storeIdx") Long storeIdx);
 }

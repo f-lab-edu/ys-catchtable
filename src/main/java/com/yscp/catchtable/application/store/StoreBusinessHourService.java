@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class StoreBusinessHourService {
     private final StoreBusinessHourRepository storeBusinessHourRepository;
 
-
     public Map<Long, StoreBusinessDto> findBusinessMap(List<Long> idxes) {
         DayType day = DayType.from(LocalDate.now());
         return storeBusinessHourRepository.findByStoreIdxIn(idxes, day)
