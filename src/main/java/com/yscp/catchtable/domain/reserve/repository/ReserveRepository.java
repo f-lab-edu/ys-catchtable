@@ -38,4 +38,6 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
                     """
             , nativeQuery = true)
     List<StoreReserveDto> getStoreReserveDtoBeforeMaxDate(@Param("idx") Long idx, @Param("date") LocalDate date);
+
+    List<ReserveData> findByStore_IdxAndReserveDate(Long idx, LocalDate reserveDate);
 }

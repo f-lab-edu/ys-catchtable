@@ -2,6 +2,7 @@ package com.yscp.catchtable.application.reserve;
 
 import com.yscp.catchtable.application.reserve.dto.ReserveDto;
 import com.yscp.catchtable.application.reserve.dto.StoreReserveDto;
+import com.yscp.catchtable.domain.reserve.entity.ReserveData;
 import com.yscp.catchtable.domain.reserve.repository.ReserveRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,10 @@ public class ReserveService {
                 .stream()
                 .map(ReserveDto::from)
                 .toList();
+    }
+
+    public ReservesInDayDto getReservesInDay(Long storeIdx, LocalDate date) {
+        List<ReserveData> reserveDates = repository.findByStore_IdxAndReserveDate(storeIdx, date);
+        return ReservesInDayDto.from(reserveDates);
     }
 }

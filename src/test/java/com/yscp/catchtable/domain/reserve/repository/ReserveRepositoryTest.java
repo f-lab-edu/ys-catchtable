@@ -27,6 +27,14 @@ class ReserveRepositoryTest {
     void getStoreReserveDtoBeforeMaxDate() {
         Assertions.assertThatCode(() -> reserveRepository.getStoreReserveDtoBeforeMaxDate(1L, LocalDate.of(2025, 6, 20)))
                 .doesNotThrowAnyException();
+    }
+
+    @DisplayName("findByStore_IdxAndReserveDate")
+    @Test
+    void findByStore_IdxAndReserveDate() {
+        Assertions.assertThatCode(() -> reserveRepository.findByStore_IdxAndReserveDate(1L, LocalDate.of(2025, 6, 20)))
+                .doesNotThrowAnyException();
 
     }
 }
+
