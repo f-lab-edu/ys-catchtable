@@ -11,11 +11,11 @@ public enum BadRequestError implements CustomError {
     /**
      * 0 ~ 100 Common
      */
-    NULL_EXCEPTION("%s", 1, true);
+    NULL_EXCEPTION("%s", "1", true);
 
     private final HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
     private final String message;
-    private final Integer errorCode;
+    private final String errorCode;
     private final Boolean isCustomMessage;
 
     @Override

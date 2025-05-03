@@ -8,10 +8,8 @@ import lombok.experimental.UtilityClass;
 public class StoreQueueMapper {
     public static StoreQueueDto toQueueDto(StoreQueueRequestDto storeQueueRequestDto) {
         return new StoreQueueDto(
-                storeQueueRequestDto.storeIdx(),
-                storeQueueRequestDto.date(),
-                storeQueueRequestDto.time(),
-                storeQueueRequestDto.userId()
+                storeQueueRequestDto.storeReserveIdx().toString(),
+                storeQueueRequestDto.userIdx()
         );
     }
 }
