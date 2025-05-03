@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +32,7 @@ public class User {
 
     private LocalDateTime modDatetime;
 
+    @Builder
     public User(Long idx, String email, String password, String phone, String nickname, LocalDateTime regDatetime, LocalDateTime modDatetime) {
         this.idx = idx;
         this.email = email;

@@ -13,4 +13,14 @@ public class StoreQueueService {
     public void registerWaiting(StoreQueueDto storeQueueDto) {
         redisTemplate.opsForZSet().add(storeQueueDto.key(), storeQueueDto.value(), storeQueueDto.score());
     }
+
+    public boolean isValidTicket(StoreQueueDto storeQueueDto) {
+        Double score = redisTemplate.opsForZSet().score(storeQueueDto.key(), storeQueueDto.value());
+        long now = System.currentTimeMillis();
+        return now - score <= 7 * 60 * 1000;
+    }
+
+    public void delete(StoreQueueDto storeQueueDto) {
+        redisTemplate.opsForZSet().remove(storeQueueDto.key(), storeQueueDto.value());
+    }
 }
