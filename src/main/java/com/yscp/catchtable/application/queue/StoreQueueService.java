@@ -14,7 +14,7 @@ public class StoreQueueService {
         redisTemplate.opsForZSet().add(storeQueueDto.key(), storeQueueDto.value(), storeQueueDto.score());
     }
 
-    public boolean isValidTicket(StoreQueueDto storeQueueDto) {
+    public boolean isValidWaitingUser(StoreQueueDto storeQueueDto) {
         Double score = redisTemplate.opsForZSet().score(storeQueueDto.key(), storeQueueDto.value());
         long now = System.currentTimeMillis();
         return now - score <= 7 * 60 * 1000;

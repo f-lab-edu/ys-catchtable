@@ -23,18 +23,22 @@ public class UserReserveService {
     private final ReserveService reserveService;
     private final UserReserveDataRepository userReserveDataRepository;
 
-    public void reserve(StoreReserveRegisterDto dto) {
-        StoreQueueDto storeQueueDto = new StoreQueueDto(dto.storeReserveIdx().toString(), dto.userIdx().toString());
+    public void reserve(StoreReserveRegisterDto storeReserveRegisterDto) {
 
-        if (ticketValid(storeQueueDto)) {
+        StoreQueueDto storeQueueDto = new StoreQueueDto(storeReserveRegisterDto.storeReserveIdx().toString(), storeReserveRegisterDto.userIdx().toString());
+
+        if (!isValidWaitingUser(storeQueueDto)) {
             throw new CatchTableException(BadRequestError.EXPIRED_TICKET);
         }
 
-        Optional<ReserveData> reserveDataOptional = reserveService.findWithStoreByIdx(dto.storeReserveIdx());
+        Optional<ReserveData> reserveDataOptional = reserveService.findWithStoreByIdx(storeReserveRegisterDto.storeReserveIdx());
 
         reserveDataOptional.ifPresentOrElse(
                 reserveData -> {
-                    saveUserReserveData(dto, reserveData, storeQueueDto);
+                    saveUserReserveData(
+                            storeReserveRegisterDto,
+                            reserveData,
+                            storeQueueDto);
                 },
                 () -> {
                     throw new CatchTableException(BadRequestError.NULL_EXCEPTION);
@@ -42,16 +46,22 @@ public class UserReserveService {
         );
     }
 
-    private void saveUserReserveData(StoreReserveRegisterDto dto, ReserveData reserveData, StoreQueueDto storeQueueDto) {
+    private void saveUserReserveData(StoreReserveRegisterDto dto,
+                                     ReserveData reserveData,
+                                     StoreQueueDto storeQueueDto) {
+
+        reserveData.userReserve(dto.requestDatetime(), dto.userIdx());
+
         UserReserveData userReserveData = UserReserveDataMapper.toEntity(reserveData, dto);
+
         if (userReserveData != null) {
             userReserveDataRepository.save(userReserveData);
         }
-        // 티켓 삭제
+
         storeQueueService.delete(storeQueueDto);
     }
 
-    private boolean ticketValid(StoreQueueDto queueDto) {
-        return storeQueueService.isValidTicket(queueDto);
+    private boolean isValidWaitingUser(StoreQueueDto queueDto) {
+        return storeQueueService.isValidWaitingUser(queueDto);
     }
 }

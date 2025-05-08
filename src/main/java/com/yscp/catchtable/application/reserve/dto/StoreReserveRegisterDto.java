@@ -1,11 +1,14 @@
 package com.yscp.catchtable.application.reserve.dto;
 
+import java.time.LocalDateTime;
+
 public record StoreReserveRegisterDto(
         Long userIdx,
         Long storeReserveIdx,
-        String reserveType,
+        String reservePayType,
         String transactionNo,
         String purpose,
-        Integer reservationNumberOfPeople
+        Integer reservationNumberOfPeople,
+        LocalDateTime requestDatetime
 ) {
 }
