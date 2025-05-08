@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
 
@@ -40,4 +41,12 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
     List<StoreReserveDto> getStoreReserveDtoBeforeMaxDate(@Param("idx") Long idx, @Param("date") LocalDate date);
 
     List<ReserveData> findByStore_IdxAndReserveDate(Long idx, LocalDate reserveDate);
+
+    @Query(value = """
+            SELECT rd
+            FROM ReserveData rd
+            JOIN FETCH rd.store s
+            WHERE rd.idx = :idx
+            """)
+    Optional<ReserveData> findWithStoreByIdx(Long idx);
 }

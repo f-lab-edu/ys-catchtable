@@ -2,8 +2,11 @@ package com.yscp.catchtable.domain.reserve.entity;
 
 import com.yscp.catchtable.domain.reserve.entity.value.StoreReserveDataStatus;
 import com.yscp.catchtable.domain.store.entity.Store;
+import com.yscp.catchtable.exception.BadRequestError;
+import com.yscp.catchtable.exception.CatchTableException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -44,4 +47,31 @@ public class ReserveData {
     private Long regIdx;
     private LocalDateTime modDatetime;
     private Long modIdx;
+
+    @Builder
+    public ReserveData(Long idx, Store store, LocalDate reserveDate, String reserveTime, Integer minUserCount, Integer maxUserCount, Integer canReserveCount, Integer reservedCount, StoreReserveDataStatus reserveStatus, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+        this.idx = idx;
+        this.store = store;
+        this.reserveDate = reserveDate;
+        this.reserveTime = reserveTime;
+        this.minUserCount = minUserCount;
+        this.maxUserCount = maxUserCount;
+        this.canReserveCount = canReserveCount;
+        this.reservedCount = reservedCount;
+        this.reserveStatus = reserveStatus;
+        this.regDatetime = regDatetime;
+        this.regIdx = regIdx;
+        this.modDatetime = modDatetime;
+        this.modIdx = modIdx;
+    }
+
+    public void userReserve(LocalDateTime userReserveDatetime, Long userIdx) {
+        if (reservedCount >= canReserveCount) {
+            throw new CatchTableException(BadRequestError.STORE_RESERVATION_MAX);
+        }
+
+        reservedCount += 1;
+        modDatetime = userReserveDatetime;
+        modIdx = userIdx;
+    }
 }

@@ -35,6 +35,10 @@ dependencies {
     // REDIS CACHE
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+// https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter
+    implementation 'org.redisson:redisson-spring-boot-starter:3.46.0'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'

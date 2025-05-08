@@ -1,9 +1,11 @@
 package com.yscp.catchtable.domain.reserve.entity;
 
+import com.yscp.catchtable.domain.reserve.entity.value.ReservePayType;
 import com.yscp.catchtable.domain.reserve.entity.value.ReserveStatus;
 import com.yscp.catchtable.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,9 +30,23 @@ public class UserReserveData {
 
     @Enumerated(EnumType.STRING)
     private ReserveStatus reserveStatus;
+    @Enumerated(EnumType.STRING)
+    private ReservePayType reservePayType;
     private LocalDateTime regDatetime;
     private Long regIdx;
     private LocalDateTime modDatetime;
     private Long modIdx;
 
+    @Builder
+    public UserReserveData(Long idx, User user, ReserveData reserveData, ReserveStatus reserveStatus, ReservePayType reservePayType, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+        this.idx = idx;
+        this.user = user;
+        this.reserveData = reserveData;
+        this.reserveStatus = reserveStatus;
+        this.reservePayType = reservePayType;
+        this.regDatetime = regDatetime;
+        this.regIdx = regIdx;
+        this.modDatetime = modDatetime;
+        this.modIdx = modIdx;
+    }
 }

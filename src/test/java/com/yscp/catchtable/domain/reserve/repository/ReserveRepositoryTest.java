@@ -34,7 +34,13 @@ class ReserveRepositoryTest {
     void findByStore_IdxAndReserveDate() {
         Assertions.assertThatCode(() -> reserveRepository.findByStore_IdxAndReserveDate(1L, LocalDate.of(2025, 6, 20)))
                 .doesNotThrowAnyException();
+    }
 
+    @DisplayName("findWithStoreByIdx")
+    @Test
+    void findWithStoreByIdx() {
+        Assertions.assertThatCode(() -> reserveRepository.findWithStoreByIdx(5L))
+                .doesNotThrowAnyException();
     }
 }
 
