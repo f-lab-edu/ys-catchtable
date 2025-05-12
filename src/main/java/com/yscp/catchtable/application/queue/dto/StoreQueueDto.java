@@ -6,7 +6,7 @@ public record StoreQueueDto(
         String storeReserveIdx,
         String userIdx
 ) {
-    private static final String WAITING_KEY_FORMAT = "store:%s:waiting:%s";
+    private static final String WAITING_KEY_FORMAT = "store:%s:waiting:v1:%s";
 
     public String key() {
         return String.format(WAITING_KEY_FORMAT, storeReserveIdx, userIdx);
