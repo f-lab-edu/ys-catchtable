@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
-class ReserveRepositoryTest {
+class StoreReserveRepositoryTest {
 
     @Autowired
-    private ReserveRepository reserveRepository;
+    private StoreReserveRepository reserveRepository;
 
     @DisplayName("resultDtos")
     @Test

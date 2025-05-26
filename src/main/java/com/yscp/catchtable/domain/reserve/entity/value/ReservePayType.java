@@ -22,6 +22,12 @@ public enum ReservePayType {
         if (reserveTypeString == null || reserveTypeString.isEmpty()) {
             throw new CatchTableException(BadRequestError.INVALID_RESERVE_PAY_TYPE);
         }
-        return MAPPING.get(reserveTypeString.toUpperCase());
+        ReservePayType reservePayType = MAPPING.get(reserveTypeString.toUpperCase());
+
+        if (reservePayType == null) {
+            throw new CatchTableException(BadRequestError.INVALID_RESERVE_PAY_TYPE);
+        }
+
+        return reservePayType;
     }
 }

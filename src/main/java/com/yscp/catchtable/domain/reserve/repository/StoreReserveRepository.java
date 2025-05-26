@@ -1,7 +1,7 @@
 package com.yscp.catchtable.domain.reserve.repository;
 
 import com.yscp.catchtable.application.reserve.dto.StoreReserveDto;
-import com.yscp.catchtable.domain.reserve.entity.ReserveData;
+import com.yscp.catchtable.domain.reserve.entity.StoreReserve;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
+public interface StoreReserveRepository extends JpaRepository<StoreReserve, Long> {
 
     @Query(
             value = """
@@ -18,7 +18,7 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
                        reserve_data AS date,
                        SUM(reserved_count) AS reserve,
                        store_idx
-                    FROM store_reserve_data
+                    FROM store_reserve
                     WHERE store_idx IN :storeIdxes
                     AND reserve_data <= :date
                     GROUP BY  store_idx,date
@@ -32,7 +32,7 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
                     reserve_data AS date,
                     SUM(reserved_count)  AS reserve,
                     store_idx
-                     FROM store_reserve_data
+                     FROM store_reserve
                      WHERE store_idx = :idx
                      AND reserve_data <= :date
                      GROUP BY  store_idx,date
@@ -40,13 +40,13 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Long> {
             , nativeQuery = true)
     List<StoreReserveDto> getStoreReserveDtoBeforeMaxDate(@Param("idx") Long idx, @Param("date") LocalDate date);
 
-    List<ReserveData> findByStore_IdxAndReserveDate(Long idx, LocalDate reserveDate);
+    List<StoreReserve> findByStore_IdxAndReserveDate(Long idx, LocalDate reserveDate);
 
     @Query(value = """
             SELECT rd
-            FROM ReserveData rd
+            FROM StoreReserve rd
             JOIN FETCH rd.store s
             WHERE rd.idx = :idx
             """)
-    Optional<ReserveData> findWithStoreByIdx(Long idx);
+    Optional<StoreReserve> findWithStoreByIdx(Long idx);
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class UserReserveData {
+public class UserReserve {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,9 @@ public class UserReserveData {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @JoinColumn(name = "reserve_data_idx")
+    @JoinColumn(name = "store_reserve_idx")
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReserveData reserveData;
+    private StoreReserve storeReserve;
 
     @Enumerated(EnumType.STRING)
     private ReserveStatus reserveStatus;
@@ -38,10 +38,18 @@ public class UserReserveData {
     private Long modIdx;
 
     @Builder
-    public UserReserveData(Long idx, User user, ReserveData reserveData, ReserveStatus reserveStatus, ReservePayType reservePayType, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+    public UserReserve(Long idx,
+                       User user,
+                       StoreReserve storeReserve,
+                       ReserveStatus reserveStatus,
+                       ReservePayType reservePayType,
+                       LocalDateTime regDatetime,
+                       Long regIdx,
+                       LocalDateTime modDatetime,
+                       Long modIdx) {
         this.idx = idx;
         this.user = user;
-        this.reserveData = reserveData;
+        this.storeReserve = storeReserve;
         this.reserveStatus = reserveStatus;
         this.reservePayType = reservePayType;
         this.regDatetime = regDatetime;

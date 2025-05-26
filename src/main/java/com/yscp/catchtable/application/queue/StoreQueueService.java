@@ -11,7 +11,9 @@ public class StoreQueueService {
     private final RedisTemplate<String, String> redisTemplate;
 
     public void registerWaiting(StoreQueueDto storeQueueDto) {
-        redisTemplate.opsForZSet().add(storeQueueDto.key(), storeQueueDto.value(), storeQueueDto.score());
+        redisTemplate.opsForZSet().add(storeQueueDto.key(),
+                storeQueueDto.value(),
+                storeQueueDto.score());
     }
 
     public boolean isValidWaitingUser(StoreQueueDto storeQueueDto) {

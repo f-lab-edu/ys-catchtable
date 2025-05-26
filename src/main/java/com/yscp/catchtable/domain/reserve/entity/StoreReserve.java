@@ -1,6 +1,6 @@
 package com.yscp.catchtable.domain.reserve.entity;
 
-import com.yscp.catchtable.domain.reserve.entity.value.StoreReserveDataStatus;
+import com.yscp.catchtable.domain.reserve.entity.value.StoreReserveStatus;
 import com.yscp.catchtable.domain.store.entity.Store;
 import com.yscp.catchtable.exception.BadRequestError;
 import com.yscp.catchtable.exception.CatchTableException;
@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "store_reserve_data")
-public class ReserveData {
+@Table(name = "store_reserve")
+public class StoreReserve {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,14 +42,26 @@ public class ReserveData {
     @Comment("예약된 횟수")
     private Integer reservedCount;
     @Enumerated(EnumType.STRING)
-    private StoreReserveDataStatus reserveStatus;
+    private StoreReserveStatus reserveStatus;
     private LocalDateTime regDatetime;
     private Long regIdx;
     private LocalDateTime modDatetime;
     private Long modIdx;
 
     @Builder
-    public ReserveData(Long idx, Store store, LocalDate reserveDate, String reserveTime, Integer minUserCount, Integer maxUserCount, Integer canReserveCount, Integer reservedCount, StoreReserveDataStatus reserveStatus, LocalDateTime regDatetime, Long regIdx, LocalDateTime modDatetime, Long modIdx) {
+    public StoreReserve(Long idx,
+                        Store store,
+                        LocalDate reserveDate,
+                        String reserveTime,
+                        Integer minUserCount,
+                        Integer maxUserCount,
+                        Integer canReserveCount,
+                        Integer reservedCount,
+                        StoreReserveStatus reserveStatus,
+                        LocalDateTime regDatetime,
+                        Long regIdx,
+                        LocalDateTime modDatetime,
+                        Long modIdx) {
         this.idx = idx;
         this.store = store;
         this.reserveDate = reserveDate;

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-class ReserveDataTest {
+class StoreReserveTest {
 
     @DisplayName("userReserve 메소드는")
     @Nested
@@ -21,7 +21,7 @@ class ReserveDataTest {
             @DisplayName("예약 카운트를 증가한다.")
             @Test
             public void plus_reserve_count() {
-                ReserveData reserveData = ReserveData.builder()
+                StoreReserve reserveData = StoreReserve.builder()
                         .idx(1L)
                         .canReserveCount(5)
                         .reservedCount(1)
@@ -40,7 +40,7 @@ class ReserveDataTest {
             @DisplayName("에러를 던진다.")
             @Test
             public void plus_reserve_count() {
-                ReserveData reserveData = ReserveData.builder()
+                StoreReserve reserveData = StoreReserve.builder()
                         .idx(1L)
                         .canReserveCount(5)
                         .reservedCount(5)

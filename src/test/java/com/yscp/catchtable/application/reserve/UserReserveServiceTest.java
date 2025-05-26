@@ -3,9 +3,9 @@ package com.yscp.catchtable.application.reserve;
 import com.yscp.catchtable.application.queue.StoreQueueService;
 import com.yscp.catchtable.application.queue.dto.StoreQueueDto;
 import com.yscp.catchtable.application.reserve.dto.StoreReserveRegisterDto;
-import com.yscp.catchtable.domain.reserve.entity.ReserveData;
-import com.yscp.catchtable.domain.reserve.entity.UserReserveData;
-import com.yscp.catchtable.domain.reserve.repository.UserReserveDataRepository;
+import com.yscp.catchtable.domain.reserve.entity.StoreReserve;
+import com.yscp.catchtable.domain.reserve.entity.UserReserve;
+import com.yscp.catchtable.domain.reserve.repository.UserReserveRepository;
 import com.yscp.catchtable.exception.CatchTableException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +31,7 @@ class UserReserveServiceTest {
     @Mock
     private ReserveService reserveService;
     @Mock
-    private UserReserveDataRepository userReserveDataRepository;
+    private UserReserveRepository userReserveDataRepository;
     @InjectMocks
     private UserReserveService userReserveService;
 
@@ -61,8 +61,11 @@ class UserReserveServiceTest {
             @DisplayName("예약 정보를 저장한다.")
             @Test
             public void save_user_reserve_data() {
-                ReserveData mockReserveData = ReserveData.builder()
+                StoreReserve mockReserveData = StoreReserve.builder()
                         .idx(1L)
+                        .reserveTime("1320")
+                        .reservedCount(10)
+                        .canReserveCount(20)
                         .build();
 
                 Mockito.when(reserveService.findWithStoreByIdx(any())).thenReturn(Optional.of(mockReserveData));
@@ -71,7 +74,7 @@ class UserReserveServiceTest {
 
                 userReserveService.reserve(storeReserveRegisterDto);
 
-                Mockito.verify(userReserveDataRepository, Mockito.times(1)).save(any(UserReserveData.class));
+                Mockito.verify(userReserveDataRepository, Mockito.times(1)).save(any(UserReserve.class));
                 Mockito.verify(storeQueueService, Mockito.times(1)).delete(any(StoreQueueDto.class));
             }
         }
