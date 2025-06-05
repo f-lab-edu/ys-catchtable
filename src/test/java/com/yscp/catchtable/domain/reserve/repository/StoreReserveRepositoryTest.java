@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
-class ReserveRepositoryTest {
+class StoreReserveRepositoryTest {
 
     @Autowired
-    private ReserveRepository reserveRepository;
+    private StoreReserveRepository reserveRepository;
 
     @DisplayName("resultDtos")
     @Test
@@ -34,7 +34,13 @@ class ReserveRepositoryTest {
     void findByStore_IdxAndReserveDate() {
         Assertions.assertThatCode(() -> reserveRepository.findByStore_IdxAndReserveDate(1L, LocalDate.of(2025, 6, 20)))
                 .doesNotThrowAnyException();
+    }
 
+    @DisplayName("findWithStoreByIdx")
+    @Test
+    void findWithStoreByIdx() {
+        Assertions.assertThatCode(() -> reserveRepository.findWithStoreByIdx(5L))
+                .doesNotThrowAnyException();
     }
 }
 

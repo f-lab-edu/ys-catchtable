@@ -1,13 +1,9 @@
 package com.yscp.catchtable.application.queue;
 
 import com.yscp.catchtable.application.queue.dto.StoreQueueDto;
-import com.yscp.catchtable.exception.BadRequestError;
-import com.yscp.catchtable.exception.CatchTableException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.time.Duration;
 
 @RequiredArgsConstructor
 @Service
@@ -15,16 +11,18 @@ public class StoreQueueService {
     private final RedisTemplate<String, String> redisTemplate;
 
     public void registerWaiting(StoreQueueDto storeQueueDto) {
-
-        Boolean result = redisTemplate.opsForZSet().addIfAbsent(storeQueueDto.key(),
+        redisTemplate.opsForZSet().add(storeQueueDto.key(),
                 storeQueueDto.value(),
                 storeQueueDto.score());
+    }
 
-        if (Boolean.FALSE.equals(result)) {
-            throw new CatchTableException(BadRequestError.ALREADY_REGISTER_WAITING);
-        }
+    public boolean isValidWaitingUser(StoreQueueDto storeQueueDto) {
+        Double score = redisTemplate.opsForZSet().score(storeQueueDto.key(), storeQueueDto.value());
+        long now = System.currentTimeMillis();
+        return now - score <= 7 * 60 * 1000;
+    }
 
-        redisTemplate.expire(storeQueueDto.key(), Duration.ofMinutes(7L));
-
+    public void delete(StoreQueueDto storeQueueDto) {
+        redisTemplate.opsForZSet().remove(storeQueueDto.key(), storeQueueDto.value());
     }
 }
