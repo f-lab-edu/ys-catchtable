@@ -11,11 +11,16 @@ public enum BadRequestError implements CustomError {
     /**
      * 0 ~ 100 Common
      */
-    NULL_EXCEPTION("%s", 1, true);
+    NULL_EXCEPTION("%s", "1", true),
+
+    /**
+     * 200 ~ 300 Waiting
+     */
+    ALREADY_REGISTER_WAITING("이미 예약을 진행하고 있습니다.", "200" , false);
 
     private final HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
     private final String message;
-    private final Integer errorCode;
+    private final String errorCode;
     private final Boolean isCustomMessage;
 
     @Override

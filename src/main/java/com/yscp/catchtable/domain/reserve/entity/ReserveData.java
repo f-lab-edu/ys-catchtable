@@ -27,9 +27,9 @@ public class ReserveData {
     private Store store;
 
     @Comment("예약 일자")
-    private LocalDate reserveData;
+    private LocalDate reserveDate;
     @Comment("예약 시간")
-    private Integer reserveTime;
+    private String reserveTime;
     @Comment("최소 인원")
     private Integer minUserCount;
     @Comment("최대 인원")
